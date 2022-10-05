@@ -1,0 +1,11 @@
+apiVersion: v2
+name: jaeger
+description: Jaeger for sumer project
+type: application
+version: 0.1.13
+appVersion: "1.16.0"
+
+dependencies:
+  - name: jaeger-operator
+    repository: https://jaegertracing.github.io/helm-charts
+    version: 2.27.1

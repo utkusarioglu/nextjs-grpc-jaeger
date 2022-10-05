@@ -1,0 +1,31 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+spec:
+  strategy: allInOne
+  allInOne:
+    image: jaegertracing/all-in-one:1.36.0
+    options:
+      log-level: debug
+      query:
+        base-path: /
+  ingress:
+    enabled: true
+    hosts: {{ .Values.ingress.hosts }}
+    annotations:
+      nginx.ingress.kubernetes.io/enable-opentracing: "true"
+      nginx.ingress.kubernetes.io/opentracing-trust-incoming-span: "true"
+      kubernetes.io/tls-acme: "true"
+      kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass }}
+
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+      alb.ingress.kubernetes.io/ssl-redirect: "443"
+      external-dns.alpha.kubernetes.io/alias: "true"
+
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/group.name: nextjs-grpc
+      alb.ingress.kubernetes.io/load-balancer-name: nextjs-grpc
+      alb.ingress.kubernetes.io/security-groups: {{ .Values.ingress.awsSecurityGroups }}
+      external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.externalDnsHostname }}

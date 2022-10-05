@@ -1,0 +1,5 @@
+ingress:
+  hosts: []
+  ingressClass: <TF_POPULATED>
+  awsSecurityGroups: <TF_POPULATED>
+  externalDnsHostname: <TF_POPULATED>
