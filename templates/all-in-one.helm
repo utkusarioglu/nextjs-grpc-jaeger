@@ -2,6 +2,7 @@ apiVersion: jaegertracing.io/v1
 kind: Jaeger
 metadata:
   name: jaeger
+  namespace: observability
 spec:
   strategy: allInOne
   allInOne:
@@ -14,8 +15,8 @@ spec:
     enabled: true
     hosts: {{ .Values.ingress.hosts }}
     annotations:
-      nginx.ingress.kubernetes.io/enable-opentracing: "true"
-      nginx.ingress.kubernetes.io/opentracing-trust-incoming-span: "true"
+      # nginx.ingress.kubernetes.io/enable-opentracing: "true"
+      # nginx.ingress.kubernetes.io/opentracing-trust-incoming-span: "true"
       kubernetes.io/tls-acme: "true"
       kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass }}
 
